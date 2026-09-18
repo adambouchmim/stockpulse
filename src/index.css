@@ -1,0 +1,155 @@
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 142 71% 45%;
+    --primary-foreground: 216 28% 7%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 142 71% 45%;
+    --accent-foreground: 216 28% 7%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142 71% 45%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 142 71% 45%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 142 71% 45%;
+
+    --font-display: 'Malayalam MN', sans-serif;
+    --font-mono: 'Malayalam MN', monospace;
+    --font-body: 'Malayalam MN', serif;
+
+
+    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.1);
+    --shadow-glow: 0 0 20px hsl(142 71% 45% / 0.25);
+  }
+
+  .dark {
+    --background: 216 28% 7%;
+    --foreground: 210 25% 92%;
+
+    --card: 216 28% 10%;
+    --card-foreground: 210 25% 92%;
+
+    --popover: 216 28% 10%;
+    --popover-foreground: 210 25% 92%;
+
+    --primary: 142 71% 45%;
+    --primary-foreground: 216 28% 7%;
+
+    --secondary: 216 20% 16%;
+    --secondary-foreground: 210 25% 85%;
+
+    --muted: 216 20% 14%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 142 71% 45%;
+    --accent-foreground: 216 28% 7%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 216 20% 18%;
+    --input: 216 20% 18%;
+    --ring: 142 71% 45%;
+
+    --sidebar-background: 216 28% 9%;
+    --sidebar-foreground: 210 25% 85%;
+    --sidebar-primary: 142 71% 45%;
+    --sidebar-primary-foreground: 216 28% 7%;
+    --sidebar-accent: 216 20% 14%;
+    --sidebar-accent-foreground: 210 25% 92%;
+    --sidebar-border: 216 20% 15%;
+    --sidebar-ring: 142 71% 45%;
+
+    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 20px hsl(142 71% 45% / 0.15);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+
+  code, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer utilities {
+  .ticker-badge {
+    font-family: var(--font-mono);
+    @apply text-xs font-semibold px-2 py-0.5 rounded bg-primary/15 text-primary;
+  }
+
+  .section-divider {
+    @apply border-t border-border/50 my-8;
+  }
+
+  .card-glow {
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .card-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
