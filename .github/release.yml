@@ -1,0 +1,46 @@
+changelog:
+  categories:
+    - title: "🚀 New Features"
+      labels:
+        - "enhancement"
+        - "feature"
+      prefixes:
+        - "feat:"
+        - "feat("
+        - "feature:"
+    - title: "🐛 Bug Fixes"
+      labels:
+        - "bug"
+        - "fix"
+      prefixes:
+        - "fix:"
+        - "fix("
+        - "hotfix:"
+    - title: "💅 UI & Design Improvements"
+      labels:
+        - "ui"
+        - "style"
+      prefixes:
+        - "style:"
+        - "style("
+        - "ui:"
+        - "ui("
+    - title: "⚡ Performance & Reliability"
+      labels:
+        - "performance"
+        - "perf"
+      prefixes:
+        - "perf:"
+        - "perf("
+    - title: "🔧 Maintenance, Refactor & Docs"
+      labels:
+        - "refactor"
+        - "chore"
+        - "documentation"
+      prefixes:
+        - "refactor:"
+        - "refactor("
+        - "chore:"
+        - "chore("
+        - "docs:"
+        - "docs("
