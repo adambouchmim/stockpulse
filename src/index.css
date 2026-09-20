@@ -48,6 +48,7 @@
     --font-display: 'Malayalam MN', sans-serif;
     --font-mono: 'Malayalam MN', monospace;
     --font-body: 'Malayalam MN', serif;
+    --driver-popover-font-family: var(--font-display);
 
 
     --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.1);

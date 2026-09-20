@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Globe, Bell, Save, Send, Check } from "lucide-react";
+import { ArrowLeft, Globe, Bell, Save, Send, Check, HelpCircle } from "lucide-react";
 
 const AVAILABLE_LANGUAGES = [
   { code: "en-US", label: "English (US)" },
@@ -211,6 +211,27 @@ export default function SettingsPage() {
                 checked={emailDigest}
                 onCheckedChange={setEmailDigest}
               />
+            </div>
+          </div>
+          {/* Tutorial & Guide */}
+          <div className="bg-card border border-border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2 text-primary">
+              <HelpCircle className="h-4 w-4" />
+              <h2 className="font-display font-semibold">App Tour & Guide</h2>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm">Replay Tutorial</p>
+                <p className="text-xs text-muted-foreground">
+                  View the interactive onboarding tour again
+                </p>
+              </div>
+              <Button variant="outline" size="sm" onClick={() => {
+                sessionStorage.setItem("stockpulse_force_tutorial", "true");
+                navigate("/");
+              }}>
+                Start Tour
+              </Button>
             </div>
           </div>
 

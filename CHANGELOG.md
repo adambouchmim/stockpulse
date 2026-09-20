@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.0-beta] - 2026-09-20
+
+### 🚀 Features & Enhancements
+- **Interactive User Onboarding Tutorial**: Integrated a guided step-by-step tour for new users highlighting Ticker Search, Digest Refresh, Categorized Sections, and Preferences/Alerts.
+- **Mobile-Adaptive Tour**: Seamlessly opens and collapses drawer sidebars on mobile screens during tour steps.
+- **Replay Tutorial**: Added manual tour launch trigger in Settings for users to revisit the walkthrough at any time.
+
+---
+
 ## [0.1.0-beta] - 2026-09-18
 
 ### 🚀 Features & Enhancements

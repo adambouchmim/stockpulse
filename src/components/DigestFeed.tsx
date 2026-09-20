@@ -294,6 +294,7 @@ export default function DigestFeed() {
                   ))}
                 </div>
                 <Button
+                  id="tour-refresh-button"
                   variant="outline"
                   size="sm"
                   onClick={handleRefresh}
@@ -327,7 +328,7 @@ export default function DigestFeed() {
           </div>
 
           {/* Company/market/industry sections tab */}
-          <TabsList className="w-full justify-start bg-secondary">
+          <TabsList id="tour-digest-tabs" className="w-full justify-start bg-secondary">
             <TabsTrigger value="company" className="gap-1.5 font-mono text-xs">
               <Building2 className="h-4 w-4" />
               Company ({companyArticles.length})

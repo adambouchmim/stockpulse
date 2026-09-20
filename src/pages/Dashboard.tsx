@@ -8,12 +8,20 @@ import { useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useTutorial } from "@/hooks/useTutorial";
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  // Initialize the tutorial on mount
+  const { isTourActive } = useTutorial({
+    isMobile,
+    onOpenSidebar: () => setSidebarOpen(true),
+    onCloseSidebar: () => setSidebarOpen(false),
+  });
 
   const handleSignOut = async () => {
     await signOut();
@@ -26,13 +34,22 @@ export default function Dashboard() {
       <nav className="h-14 border-b border-border bg-background/80 backdrop-blur-md flex items-center justify-between px-4 shrink-0 z-20">
         <div className="flex items-center gap-3">
           {isMobile && (
-            <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+            <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen} modal={!isTourActive}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-8 w-8">
                   <Menu className="h-4 w-4" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="p-0 w-80">
+              <SheetContent
+                side="left"
+                className="p-0 w-80"
+                onPointerDownOutside={(e) => {
+                  if (isTourActive) e.preventDefault();
+                }}
+                onInteractOutside={(e) => {
+                  if (isTourActive) e.preventDefault();
+                }}
+              >
                 <WatchlistSidebar />
               </SheetContent>
             </Sheet>
@@ -47,7 +64,7 @@ export default function Dashboard() {
             {user?.email}
           </span>
           <ThemeToggle />
-          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => navigate("/settings")}>
+          <Button id="tour-settings-button" variant="ghost" size="icon" className="h-8 w-8" onClick={() => navigate("/settings")}>
             <Settings className="h-4 w-4" />
           </Button>
           <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleSignOut}>
