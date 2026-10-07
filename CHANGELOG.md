@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.0-beta] - 2026-10-07
+
+### 🚀 Features & Enhancements
+- **In-App User Feedback System**: Added a dedicated feedback hub (`/feedback`) with category selection (Feature Request, Bug Report, News/Content, General, Other), star rating, and diagnostics toggle.
+- **Direct Email & Multi-Layer Delivery**: Feedback is dispatched directly to `pulsedigeststock@gmail.com` with automatic Supabase database storage and direct email app fallbacks.
+- **Floating Feedback Action Button**: Non-intrusive floating feedback trigger accessible across all protected views.
+- **Cross-Device Tutorial Sync**: Persisted tutorial completion flag directly in user account metadata (`tutorial_completed: true`) preventing repeated tours across different browsers/devices.
+
+---
+
 ## [0.2.0-beta] - 2026-09-20
 
 ### 🚀 Features & Enhancements

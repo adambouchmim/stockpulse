@@ -8,7 +8,9 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import SettingsPage from "./pages/SettingsPage";
+import FeedbackPage from "./pages/FeedbackPage";
 import NotFound from "./pages/NotFound";
+import FloatingFeedbackButton from "@/components/FloatingFeedbackButton";
 
 const queryClient = new QueryClient();
 
@@ -40,10 +42,12 @@ const App = () => (
         <Sonner />
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <AuthProvider>
+            <FloatingFeedbackButton />
             <Routes>
               <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
               <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+              <Route path="/feedback" element={<ProtectedRoute><FeedbackPage /></ProtectedRoute>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AuthProvider>
