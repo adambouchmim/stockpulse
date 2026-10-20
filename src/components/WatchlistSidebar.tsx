@@ -5,6 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, X, Plus, TrendingUp, BarChart3, Loader2 } from "lucide-react";
+import { MarqueeText } from "@/components/MarqueeText";
 
 interface WatchlistItem {
   id: string;
@@ -157,10 +158,17 @@ export default function WatchlistSidebar() {
   return (
     <aside className="w-full h-full flex flex-col bg-sidebar border-r border-sidebar-border">
       {/* Header */}
-      <div className="p-4 border-b border-sidebar-border">
-        <div className="flex items-center gap-2 mb-4">
-          <TrendingUp className="h-5 w-5 text-primary" />
-          <h2 className="font-display text-lg font-semibold text-sidebar-foreground">Watchlist</h2>
+      <div className="p-4 lg:p-5 border-b border-sidebar-border">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <TrendingUp className="h-5 w-5 text-primary" />
+            <h2 className="font-display text-lg font-semibold text-sidebar-foreground">Watchlist</h2>
+          </div>
+          {watchlist.length > 0 && (
+            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">
+              {watchlist.length} {watchlist.length === 1 ? "ticker" : "tickers"}
+            </span>
+          )}
         </div>
 
         {/* Search */}
@@ -173,24 +181,25 @@ export default function WatchlistSidebar() {
             placeholder="Search tickers..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-secondary border-sidebar-border text-sm font-mono"
+            className="pl-10 bg-secondary border-sidebar-border text-sm font-mono h-10"
           />
         </div>
 
         {/* Search Results */}
         {searchResults.length > 0 && (
-          <div className="mt-2 bg-popover border border-border rounded-md overflow-hidden">
+          <div className="mt-2 bg-popover border border-border rounded-md overflow-hidden shadow-lg">
             {searchResults.map((result) => (
               <button
                 key={result.symbol}
                 onClick={() => addTicker(result)}
-                className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-secondary transition-colors text-left"
+                className="w-full flex items-center gap-3 px-3.5 py-2.5 hover:bg-secondary transition-colors text-left"
               >
-                <span className="ticker-badge">{result.symbol}</span>
+                <span className="ticker-badge shrink-0 min-w-[56px] text-center">{result.symbol}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm truncate">{result.name}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-sm font-bold truncate">{result.name}</p>
+                  <p className="text-xs text-muted-foreground truncate">
                     {countryFlag(result.country)} {result.exchange}
+                    {result.sector && <span className="ml-1.5 opacity-60">· {result.sector}</span>}
                   </p>
                 </div>
                 <Plus className="h-4 w-4 text-muted-foreground shrink-0" />
@@ -201,7 +210,7 @@ export default function WatchlistSidebar() {
       </div>
 
       {/* Watchlist */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-6">
+      <div className="flex-1 overflow-y-auto p-4 lg:p-5 space-y-6">
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <Loader2 className="h-5 w-5 text-muted-foreground animate-spin" />
@@ -248,32 +257,46 @@ function WatchlistGroup({
 }) {
   return (
     <div>
-      <h3 className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-        {title}
-      </h3>
-      <div className="space-y-1">
+      <div className="flex items-center justify-between mb-2.5">
+        <h3 className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wider">
+          {title}
+        </h3>
+        <span className="text-[11px] font-mono text-muted-foreground/60">
+          {items.length}
+        </span>
+      </div>
+      <div className="space-y-1.5">
         {items.map((item, i) => (
           <div
             key={item.id}
-            className="group flex items-center gap-3 px-3 py-2 rounded-md hover:bg-secondary transition-all"
+            className="group flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-secondary/80 transition-all min-h-[56px]"
             style={{ animationDelay: `${i * 50}ms` }}
           >
-            <span className="ticker-badge">{item.ticker}</span>
+            <span className="ticker-badge shrink-0 min-w-[56px] text-center font-mono font-semibold">
+              {item.ticker}
+            </span>
             <div className="flex-1 min-w-0">
-              <p className="text-sm truncate">{item.company_name}</p>
-              <p className="text-xs text-muted-foreground">
+              <MarqueeText
+                text={item.company_name || item.ticker}
+                delayMs={(i * 600) % 3000}
+                className="text-sm font-bold text-foreground"
+              />
+              <p
+                className="text-xs text-muted-foreground truncate"
+                title={`${item.country ? countryFlag(item.country) + " " : ""}${item.exchange || ""}${item.sector ? " · " + item.sector : ""}`}
+              >
                 {countryFlag(item.country)} {item.exchange}
-                {item.sector && <span className="ml-2 opacity-60">· {item.sector}</span>}
+                {item.sector && <span className="ml-1.5 opacity-60">· {item.sector}</span>}
               </p>
             </div>
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="h-7 w-7 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-foreground"
               onClick={() => onRemove(item.id, item.ticker)}
               aria-label={`Remove ${item.ticker}`}
             >
-              <X className="h-3 w-3" />
+              <X className="h-3.5 w-3.5" />
             </Button>
           </div>
         ))}

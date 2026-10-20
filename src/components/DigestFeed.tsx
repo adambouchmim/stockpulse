@@ -260,97 +260,100 @@ export default function DigestFeed() {
     <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col min-h-0 overflow-hidden">
         {/* Header - Title, Search Bar, Tabs */}
-        <header className="shrink-0 bg-background/80 backdrop-blur-md border-b border-border px-6 py-4 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight" style={{ fontFamily: "'Malayalam MN', sans-serif" }}>Weekly Digest</h1>
-              {lastFetched && (
-                <p className="text-xs text-muted-foreground mt-1 font-mono">
-                  <Clock className="inline h-3 w-3 mr-1" />
-                  Last updated: {formatDistanceToNow(new Date(lastFetched), { addSuffix: true })}
-                </p>
+        <header className="shrink-0 bg-background/80 backdrop-blur-md border-b border-border px-6 lg:px-8 xl:px-10 py-5">
+          <div className="w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight" style={{ fontFamily: "'Montserrat', sans-serif" }}>Weekly Digest</h1>
+                {lastFetched && (
+                  <p className="text-xs text-muted-foreground mt-1 font-mono">
+                    <Clock className="inline h-3 w-3 mr-1" />
+                    Last updated: {formatDistanceToNow(new Date(lastFetched), { addSuffix: true })}
+                  </p>
+                )}
+              </div>
+              {activeTab !== "saved" && (
+                <div className="flex items-center gap-3 shrink-0">
+                  {/* Time Range Selector */}
+                  <div className="flex bg-secondary rounded-lg p-0.5 border border-border/50">
+                    {([
+                      ["week", "This Week"],
+                      ["prev_week", "Last Week"],
+                      ["two_weeks", "2 Weeks Ago"]
+                    ] as const).map(([key, label]) => (
+                      <button
+                        key={key}
+                        onClick={() => setTimeRange(key)}
+                        className={`px-3 py-1.5 text-xs font-mono rounded-md transition-colors ${
+                          timeRange === key
+                            ? "bg-primary text-primary-foreground font-semibold shadow-sm"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                  <Button
+                    id="tour-refresh-button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleRefresh}
+                    disabled={refreshing}
+                    className="h-8 px-3"
+                  >
+                    <RefreshCw className={`h-4 w-4 mr-1.5 ${refreshing ? "animate-spin" : ""}`} />
+                    Refresh
+                  </Button>
+                </div>
               )}
             </div>
-            {activeTab !== "saved" && (
-              <div className="flex items-center gap-3">
-                {/* Time Range Selector */}
-                <div className="flex bg-secondary rounded-md p-0.5">
-                  {([
-                    ["week", "This Week"],
-                    ["prev_week", "Last Week"],
-                    ["two_weeks", "2 Weeks Ago"]
-                  ] as const).map(([key, label]) => (
-                    <button
-                      key={key}
-                      onClick={() => setTimeRange(key)}
-                      className={`px-3 py-1.5 text-xs font-mono rounded transition-colors ${
-                        timeRange === key
-                          ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-                <Button
-                  id="tour-refresh-button"
-                  variant="outline"
-                  size="sm"
-                  onClick={handleRefresh}
-                  disabled={refreshing}
+
+            {/* Search Bar */}
+            <div className="relative w-full">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Filter by ticker, keyword, or source…"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-10 py-2.5 text-sm bg-secondary border border-border rounded-lg font-mono placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-0.5 rounded"
                 >
-                  <RefreshCw className={`h-4 w-4 mr-1 ${refreshing ? "animate-spin" : ""}`} />
-                  Refresh
-                </Button>
-              </div>
-            )}
-          </div>
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
 
-          {/* Search Bar */}
-          <div className="relative max-w-4xl">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Filter by ticker, keyword, or source…"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-9 py-2 text-sm bg-secondary border border-border rounded-md font-mono placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            )}
+            {/* Company/market/industry sections tab */}
+            <TabsList id="tour-digest-tabs" className="w-fit max-w-full overflow-x-auto justify-start bg-secondary/80 p-1 rounded-lg border border-border/40">
+              <TabsTrigger value="company" className="gap-1.5 font-mono text-xs px-3 py-1.5 rounded-md">
+                <Building2 className="h-4 w-4" />
+                Company ({companyArticles.length})
+              </TabsTrigger>
+              <TabsTrigger value="market" className="gap-1.5 font-mono text-xs px-3 py-1.5 rounded-md">
+                <Globe className="h-4 w-4" />
+                Market ({marketArticles.length})
+              </TabsTrigger>
+              <TabsTrigger value="industry" className="gap-1.5 font-mono text-xs px-3 py-1.5 rounded-md">
+                <Factory className="h-4 w-4" />
+                Industry ({industryArticles.length})
+              </TabsTrigger>
+              <TabsTrigger value="saved" className="gap-1.5 font-mono text-xs px-3 py-1.5 rounded-md">
+                <Bookmark className="h-4 w-4" />
+                Saved ({bookmarkedArticles.length})
+              </TabsTrigger>
+            </TabsList>
           </div>
-
-          {/* Company/market/industry sections tab */}
-          <TabsList id="tour-digest-tabs" className="w-full justify-start bg-secondary">
-            <TabsTrigger value="company" className="gap-1.5 font-mono text-xs">
-              <Building2 className="h-4 w-4" />
-              Company ({companyArticles.length})
-            </TabsTrigger>
-            <TabsTrigger value="market" className="gap-1.5 font-mono text-xs">
-              <Globe className="h-4 w-4" />
-              Market ({marketArticles.length})
-            </TabsTrigger>
-            <TabsTrigger value="industry" className="gap-1.5 font-mono text-xs">
-              <Factory className="h-4 w-4" />
-              Industry ({industryArticles.length})
-            </TabsTrigger>
-            <TabsTrigger value="saved" className="gap-1.5 font-mono text-xs">
-              <Bookmark className="h-4 w-4" />
-              Saved ({bookmarkedArticles.length})
-            </TabsTrigger>
-          </TabsList>
         </header>
 
         {/* Content Section - Independent Scroll */}
-        <div className="flex-1 overflow-y-auto px-6 py-6 min-h-0">
-          <div className="max-w-4xl">
+        <div className="flex-1 overflow-y-auto px-6 lg:px-8 xl:px-10 py-6 min-h-0">
+          <div className="w-full max-w-5xl xl:max-w-6xl 2xl:max-w-7xl">
             {loading ? (
               <div className="space-y-4">
                 {Array.from({ length: 4 }).map((_, i) => (
@@ -418,7 +421,7 @@ function ArticleList({ articles, bookmarkedIds, onToggleBookmark, emptyMessage }
     return <p className="text-sm text-muted-foreground text-center py-8">{emptyMessage}</p>;
   }
   return (
-    <div className="space-y-3">
+    <div className="space-y-3.5">
       {articles.map((article, i) => (
         <ArticleCard
           key={article.id}
@@ -436,32 +439,32 @@ function ArticleCard({
   article,
   index,
   isBookmarked,
-  onToggleBookmark
-
-
-
-
-
-}: {article: Article;index: number;isBookmarked: boolean;onToggleBookmark: () => void;}) {
+  onToggleBookmark,
+}: {
+  article: Article;
+  index: number;
+  isBookmarked: boolean;
+  onToggleBookmark: () => void;
+}) {
   return (
     <div
-      className="bg-card border border-border rounded-lg p-5 card-glow animate-fade-in-up group"
-      style={{ animationDelay: `${index * 80}ms` }}>
-      
+      className="bg-card border border-border rounded-lg p-5 sm:p-5.5 card-glow animate-fade-in-up group"
+      style={{ animationDelay: `${index * 80}ms` }}
+    >
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
           {/* Source */}
           <div className="flex items-center gap-2 mb-2">
-            {article.source_name &&
-            <span className="text-xs font-mono text-muted-foreground">
+            {article.source_name && (
+              <span className="text-xs font-mono text-muted-foreground">
                 {article.source_name}
               </span>
-            }
-            {article.published_at &&
-            <span className="text-xs text-muted-foreground">
+            )}
+            {article.published_at && (
+              <span className="text-xs text-muted-foreground">
                 · {formatDistanceToNow(new Date(article.published_at), { addSuffix: true })}
               </span>
-            }
+            )}
           </div>
 
           {/* Headline */}
@@ -469,38 +472,37 @@ function ArticleCard({
             href={article.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-display text-base font-semibold leading-snug hover:text-primary transition-colors inline-flex items-start gap-1.5">
-            
-            {article.headline}
+            className="font-display text-base sm:text-[17px] font-semibold leading-snug hover:text-primary transition-colors inline-flex items-start gap-1.5"
+          >
+            <span>{article.headline}</span>
             <ExternalLink className="h-3.5 w-3.5 shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
           </a>
 
-
           {/* Tags */}
-          {article.ticker_tags && article.ticker_tags.length > 0 &&
-          <div className="flex flex-wrap gap-1.5 mt-3">
-              {article.ticker_tags.map((tag) =>
-            <span key={tag} className="ticker-badge">
+          {article.ticker_tags && article.ticker_tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {article.ticker_tags.map((tag) => (
+                <span key={tag} className="ticker-badge">
                   {tag}
                 </span>
-            )}
+              ))}
             </div>
-          }
+          )}
         </div>
 
         {/* Bookmark */}
         <button
           onClick={onToggleBookmark}
-          className="shrink-0 p-1.5 rounded hover:bg-secondary transition-colors"
-          aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}>
-          
+          className="shrink-0 p-1.5 rounded-md hover:bg-secondary transition-colors"
+          aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
+        >
           <Bookmark
             className={`h-4 w-4 ${
-            isBookmarked ? "fill-primary text-primary" : "text-muted-foreground"}`
-            } />
-          
+              isBookmarked ? "fill-primary text-primary" : "text-muted-foreground"
+            }`}
+          />
         </button>
       </div>
-    </div>);
-
+    </div>
+  );
 }

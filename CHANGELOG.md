@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.0-beta] - 2026-10-20
+
+### 🚀 Features & Enhancements
+- **Typography Overhaul**: Standardized the entire application on Google Font **Montserrat** (weights 100–900) across display, body, mono, and feedback templates.
+- **Pure OLED / AMOLED Dark Mode**: Re-engineered dark mode color tokens from slate/navy to true black (`#000000`), deep charcoal cards, high-contrast borders, and adaptive browser `theme-color` meta tags.
+- **Interactive Ping-Pong Marquee**: Added `MarqueeText` component to smoothly scroll truncated long company names in the watchlist with gradient edge masking and reduced-motion support.
+- **Enhanced Watchlist UX & Responsive Sidebar**: Added real-time ticker count badges, expanded search result metadata (sectors, country flags), and responsive desktop sidebar scaling (from 320px up to 460px on wide screens).
+- **Driver.js Onboarding Tour Theming**: Styled tutorial popovers, indicators, and buttons to seamlessly inherit AMOLED theme tokens.
+
+---
+
 ## [0.3.0-beta] - 2026-10-07
 
 ### 🚀 Features & Enhancements

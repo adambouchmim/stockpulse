@@ -31,7 +31,7 @@ export default function Dashboard() {
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
       {/* Top Bar */}
-      <nav className="h-14 border-b border-border bg-background/80 backdrop-blur-md flex items-center justify-between px-4 shrink-0 z-20">
+      <nav className="h-14 border-b border-border bg-background/80 backdrop-blur-md flex items-center justify-between px-4 lg:px-6 shrink-0 z-20">
         <div className="flex items-center gap-3">
           {isMobile && (
             <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen} modal={!isTourActive}>
@@ -42,7 +42,7 @@ export default function Dashboard() {
               </SheetTrigger>
               <SheetContent
                 side="left"
-                className="p-0 w-80"
+                className="p-0 w-80 sm:w-[360px]"
                 onPointerDownOutside={(e) => {
                   if (isTourActive) e.preventDefault();
                 }}
@@ -77,7 +77,7 @@ export default function Dashboard() {
       <div className="flex flex-1 overflow-hidden">
         {/* Desktop Sidebar */}
         {!isMobile && (
-          <div className="w-80 shrink-0 border-r border-border overflow-hidden">
+          <div className="w-80 md:w-[340px] lg:w-[380px] xl:w-[420px] 2xl:w-[460px] shrink-0 border-r border-border overflow-hidden flex flex-col">
             <WatchlistSidebar />
           </div>
         )}

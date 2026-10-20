@@ -14,9 +14,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Malayalam MN", "sans-serif"],
-        mono: ["Malayalam MN", "monospace"],
-        body: ["Malayalam MN", "serif"],
+        sans: ["Montserrat", "sans-serif"],
+        serif: ["Montserrat", "serif"],
+        display: ["Montserrat", "sans-serif"],
+        mono: ["Montserrat", "monospace"],
+        body: ["Montserrat", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
