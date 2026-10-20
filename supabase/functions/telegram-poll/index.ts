@@ -80,7 +80,7 @@ Deno.serve(async (req) => {
         await sendTelegram(
           botToken,
           chatId,
-          "👋 Welcome to StockPulse!\n\nCommands:\n/refresh — Refresh your news digest\n/status — Check your digest status"
+          "👋 Welcome to tailorfeed!\n\nCommands:\n/refresh — Refresh your news digest\n/status — Check your digest status"
         );
         processed++;
       } else if (text === "/status") {
@@ -128,7 +128,7 @@ async function handleRefreshCommand(
     await sendTelegram(
       botToken,
       chatId,
-      "❌ Your Telegram is not linked to a StockPulse account.\n\nGo to Settings in the app and add your Chat ID."
+      "❌ Your Telegram is not linked to a tailorfeed account.\n\nGo to Settings in the app and add your Chat ID."
     );
     return;
   }
@@ -193,7 +193,7 @@ async function handleStatusCommand(
   await sendTelegram(
     botToken,
     chatId,
-    `📊 StockPulse Status\n\n🔖 Watchlist: ${count || 0} tickers\n🕐 Last refresh: ${lastFetched}`
+    `📊 tailorfeed Status\n\n🔖 Watchlist: ${count || 0} tickers\n🕐 Last refresh: ${lastFetched}`
   );
 }
 

@@ -74,7 +74,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    const userEmail = user.email || "unknown@stockpulse.user";
+    const userEmail = user.email || "unknown@tailorfeed.user";
     const categoryLabel = CATEGORY_LABELS[category] || category;
 
     // 1. Insert into feedback database table
@@ -112,7 +112,7 @@ Deno.serve(async (req) => {
     const screenSize = (metadata?.screenSize as string) || "N/A";
 
     const textContent = `
-New StockPulse User Feedback
+New tailorfeed User Feedback
 ============================
 From: ${userEmail} (User ID: ${user.id})
 Category: ${categoryLabel}
@@ -154,7 +154,7 @@ Diagnostics:
 <body>
   <div class="container">
     <div class="header">
-      <h1>StockPulse Feedback</h1>
+      <h1>tailorfeed Feedback</h1>
       <span class="badge">${categoryLabel}</span>
     </div>
     <div class="content">
@@ -190,10 +190,10 @@ Diagnostics:
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: "StockPulse Feedback <onboarding@resend.dev>",
+            from: "tailorfeed Feedback <onboarding@resend.dev>",
             to: [targetEmail],
             reply_to: userEmail,
-            subject: `[StockPulse Feedback - ${categoryLabel}] ${subject}`,
+            subject: `[tailorfeed Feedback - ${categoryLabel}] ${subject}`,
             text: textContent,
             html: htmlContent,
           }),

@@ -1,6 +1,8 @@
-# StockPulse
+# tailorfeed
 
-StockPulse is a personalized weekly market and portfolio news digest application. It monitors watchlist stocks, summarizes high-impact market news using AI, and presents concise digests for investors.
+> **Your financial news feed. Tailor made.**
+
+**tailorfeed** is a personalized weekly market and portfolio news digest application. It monitors watchlist stocks, summarizes high-impact market news using AI, and presents concise digests for investors.
 
 ## Features
 
@@ -28,8 +30,8 @@ StockPulse is a personalized weekly market and portfolio news digest application
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/adambouchmim/stockpulse.git
-cd stockpulse
+git clone https://github.com/adambouchmim/tailorfeed.git
+cd tailorfeed
 ```
 
 2. Install dependencies:

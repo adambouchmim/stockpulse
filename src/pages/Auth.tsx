@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { TrendingUp, Mail, Lock, ArrowRight } from "lucide-react";
+import { Mail, Lock, ArrowRight } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -62,15 +63,7 @@ export default function Auth() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-md space-y-8">
         {/* Logo */}
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-2 text-primary">
-            <TrendingUp className="h-8 w-8" />
-            <span className="font-display text-3xl font-bold tracking-tight">StockPulse</span>
-          </div>
-          <p className="text-muted-foreground font-body text-sm">
-            Your personalized weekly market digest
-          </p>
-        </div>
+        <BrandLogo size="lg" showMotto mottoPlacement="stacked" asLink={false} />
 
         {/* Form Card */}
         <div className="bg-card border border-border rounded-lg p-8 card-glow space-y-6">

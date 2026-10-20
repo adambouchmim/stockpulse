@@ -19,7 +19,7 @@ export function useTutorial(options?: UseTutorialOptions) {
 
   const markTutorialCompleted = useCallback(async () => {
     if (!user) return;
-    const key = `stockpulse_tutorial_completed_${user.id}`;
+    const key = `tailorfeed_tutorial_completed_${user.id}`;
     localStorage.setItem(key, "true");
 
     if (!user.user_metadata?.tutorial_completed) {
@@ -124,7 +124,7 @@ export function useTutorial(options?: UseTutorialOptions) {
             popover: {
               title: "Preferences & Alerts",
               description:
-                "Tailor StockPulse to your needs. Set up Telegram notifications and choose your preferred article languages.",
+                "Tailor tailorfeed to your needs. Set up Telegram notifications and choose your preferred article languages.",
               side: "bottom",
               align: "end",
             },
@@ -145,20 +145,26 @@ export function useTutorial(options?: UseTutorialOptions) {
   useEffect(() => {
     if (!user) return;
 
-    const key = `stockpulse_tutorial_completed_${user.id}`;
+    const key = `tailorfeed_tutorial_completed_${user.id}`;
+    const legacyKey = `stockpulse_tutorial_completed_${user.id}`;
     const isCompletedInMeta = Boolean(user.user_metadata?.tutorial_completed);
-    const isCompletedInLocal = localStorage.getItem(key) === "true";
+    const isCompletedInLocal =
+      localStorage.getItem(key) === "true" ||
+      localStorage.getItem(legacyKey) === "true";
     const isCompleted = isCompletedInMeta || isCompletedInLocal;
 
-    // Sync localStorage if previously completed on another device/browser
-    if (isCompletedInMeta && !isCompletedInLocal) {
+    // Sync localStorage if previously completed on another device/browser or under legacy key
+    if (isCompleted && localStorage.getItem(key) !== "true") {
       localStorage.setItem(key, "true");
     }
 
     // Check if there is a pending manual start from the settings page
-    const forceStart = sessionStorage.getItem("stockpulse_force_tutorial");
+    const forceStart =
+      sessionStorage.getItem("tailorfeed_force_tutorial") ||
+      sessionStorage.getItem("stockpulse_force_tutorial");
 
     if (forceStart === "true") {
+      sessionStorage.removeItem("tailorfeed_force_tutorial");
       sessionStorage.removeItem("stockpulse_force_tutorial");
       startTour();
       return;

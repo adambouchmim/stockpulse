@@ -3,12 +3,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import WatchlistSidebar from "@/components/WatchlistSidebar";
 import DigestFeed from "@/components/DigestFeed";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, LogOut, Settings, Menu, X } from "lucide-react";
+import { LogOut, Settings, Menu } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useTutorial } from "@/hooks/useTutorial";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
@@ -54,10 +55,7 @@ export default function Dashboard() {
               </SheetContent>
             </Sheet>
           )}
-          <div className="flex items-center gap-2 text-primary">
-            <TrendingUp className="h-5 w-5" />
-            <span className="font-display text-lg font-bold tracking-tight">StockPulse</span>
-          </div>
+          <BrandLogo size="sm" showMotto mottoPlacement="inline" />
         </div>
         <div className="flex items-center gap-2">
           <span className="text-xs text-muted-foreground font-mono hidden sm:block">

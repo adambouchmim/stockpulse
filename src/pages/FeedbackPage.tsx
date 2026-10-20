@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import BrandLogo from "@/components/BrandLogo";
 import {
   ArrowLeft,
   Send,
@@ -18,7 +19,6 @@ import {
   FileQuestion,
   Layers,
   CheckCircle2,
-  TrendingUp,
   Loader2,
   Mail,
   AlertTriangle,
@@ -83,7 +83,7 @@ export default function FeedbackPage() {
 
   const getMailtoUrl = () => {
     const categoryLabel = CATEGORIES.find((c) => c.id === category)?.label || category;
-    const mailSubject = encodeURIComponent(`[StockPulse Feedback - ${categoryLabel}] ${subject}`);
+    const mailSubject = encodeURIComponent(`[tailorfeed Feedback - ${categoryLabel}] ${subject}`);
     const mailBody = encodeURIComponent(
       `From: ${user?.email || "Authenticated User"}\n` +
       `Category: ${categoryLabel}\n` +
@@ -141,8 +141,8 @@ export default function FeedbackPage() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          _subject: `[StockPulse Feedback - ${categoryLabel}] ${subject.trim()}`,
-          _replyto: user?.email || "unknown@stockpulse.user",
+          _subject: `[tailorfeed Feedback - ${categoryLabel}] ${subject.trim()}`,
+          _replyto: user?.email || "unknown@tailorfeed.user",
           "User Email": user?.email || "Authenticated User",
           Category: categoryLabel,
           Rating: rating ? `${rating} of 5 stars` : "Not provided",
@@ -164,7 +164,7 @@ export default function FeedbackPage() {
           try {
             await supabase.from("feedback").insert({
               user_id: user.id,
-              user_email: user.email || "unknown@stockpulse.user",
+              user_email: user.email || "unknown@tailorfeed.user",
               category,
               subject: subject.trim(),
               message: message.trim(),
@@ -198,7 +198,7 @@ export default function FeedbackPage() {
         try {
           const { error: dbError } = await supabase.from("feedback").insert({
             user_id: user.id,
-            user_email: user.email || "unknown@stockpulse.user",
+            user_email: user.email || "unknown@tailorfeed.user",
             category,
             subject: subject.trim(),
             message: message.trim(),
@@ -257,10 +257,7 @@ export default function FeedbackPage() {
           >
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <div className="flex items-center gap-2 text-primary font-display font-bold">
-            <TrendingUp className="h-5 w-5" />
-            <span className="text-base tracking-tight">StockPulse</span>
-          </div>
+          <BrandLogo size="sm" asLink />
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -279,7 +276,7 @@ export default function FeedbackPage() {
                 Thank You for Your Feedback!
               </h2>
               <p className="text-muted-foreground text-sm max-w-md mx-auto">
-                Your thoughts help us continuously refine StockPulse. A copy of
+                Your thoughts help us continuously refine tailorfeed. A copy of
                 your feedback has been sent to{" "}
                 <span className="font-medium text-foreground">
                   pulsedigeststock@gmail.com
@@ -311,7 +308,7 @@ export default function FeedbackPage() {
                 Feedback & Suggestions
               </h1>
               <p className="text-sm text-muted-foreground mt-1">
-                Help us make StockPulse better. Share your experience, report a
+                Help us make tailorfeed better. Share your experience, report a
                 bug, or request a feature.
               </p>
             </div>
@@ -444,7 +441,7 @@ export default function FeedbackPage() {
                 </div>
                 <Textarea
                   id="message"
-                  placeholder="Tell us what happened, what you expected, or how we can make StockPulse better..."
+                  placeholder="Tell us what happened, what you expected, or how we can make tailorfeed better..."
                   rows={5}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}

@@ -160,12 +160,12 @@ export default function SettingsPage() {
                 </a>
                 {" "}on Telegram to get your Chat ID. Then start a conversation with{" "}
                 <a
-                  href="https://t.me/StockPulsePush_bot"
+                  href="https://t.me/Tailorfeed_bot"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline"
                 >
-                  @StockPulsePush_bot
+                  @Tailorfeed_bot
                 </a>
                 .
               </p>
@@ -227,7 +227,7 @@ export default function SettingsPage() {
                 </p>
               </div>
               <Button variant="outline" size="sm" onClick={() => {
-                sessionStorage.setItem("stockpulse_force_tutorial", "true");
+                sessionStorage.setItem("tailorfeed_force_tutorial", "true");
                 navigate("/");
               }}>
                 Start Tour

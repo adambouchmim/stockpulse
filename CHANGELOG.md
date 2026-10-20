@@ -1,9 +1,21 @@
 # Changelog
 
-All notable changes to the **StockPulse** project will be documented in this file.
+All notable changes to the **tailorfeed** project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [0.5.0-beta] - 2026-10-20
+
+### 🚀 Brand Transition: tailorfeed
+- **Product Rebranding**: Officially rebranded application to **tailorfeed** (*"Your financial news feed. Tailor made."*).
+- **Brand Assets**: Added official high-res logo (`logo.png`), favicons (`favicon.ico`, `favicon.png`), and Apple touch icon (`apple-touch-icon.png`).
+- **BrandLogo Component**: Created shared responsive `<BrandLogo />` component supporting light/dark adaptive invert, stacked auth hero layouts, and inline navigation headers.
+- **Dynamic Base Routing**: Enhanced Vite configuration to dynamically detect GitHub repository name or default to `/tailorfeed/`.
+- **Telegram Bot Rebrand**: Updated bot instructions and links to `@Tailorfeed_bot`.
+- **Tutorial & Storage Migration**: Preserved backward compatibility for tutorial completion flags across legacy `stockpulse` keys and new `tailorfeed` keys.
 
 ---
 
