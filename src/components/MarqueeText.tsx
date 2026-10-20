@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface MarqueeTextProps {
   text: string;
   className?: string;
+  containerClassName?: string;
   delayMs?: number;
 }
 
-export function MarqueeText({ text, className = "", delayMs = 0 }: MarqueeTextProps) {
+export function MarqueeText({
+  text,
+  className = "",
+  containerClassName = "",
+  delayMs = 0,
+}: MarqueeTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const [overflow, setOverflow] = useState(0);
@@ -53,7 +60,7 @@ export function MarqueeText({ text, className = "", delayMs = 0 }: MarqueeTextPr
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden relative max-w-full"
+      className={cn("overflow-hidden relative max-w-full", containerClassName)}
       style={maskStyles}
       title={text}
     >

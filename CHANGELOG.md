@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.1-beta] - 2026-10-20
+
+### 🚀 Features & Enhancements
+- **Subtitle Marquee Scrolling**: Extended `MarqueeText` scrolling to sector and industry labels in both watchlist cards and live search suggestions.
+- **Marquee Container Layout**: Added `containerClassName` support to `MarqueeText` for seamless flexbox truncation and alignment.
+
+---
+
 ## [0.4.0-beta] - 2026-10-20
 
 ### 🚀 Features & Enhancements

@@ -197,10 +197,19 @@ export default function WatchlistSidebar() {
                 <span className="ticker-badge shrink-0 min-w-[56px] text-center">{result.symbol}</span>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold truncate">{result.name}</p>
-                  <p className="text-xs text-muted-foreground truncate">
-                    {countryFlag(result.country)} {result.exchange}
-                    {result.sector && <span className="ml-1.5 opacity-60">· {result.sector}</span>}
-                  </p>
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground min-w-0">
+                    <span className="shrink-0">{countryFlag(result.country)} {result.exchange}</span>
+                    {(result.sector || result.industry) && (
+                      <>
+                        <span className="shrink-0 opacity-60">·</span>
+                        <MarqueeText
+                          text={(result.sector || result.industry)!}
+                          containerClassName="flex-1 min-w-0"
+                          className="text-xs text-muted-foreground"
+                        />
+                      </>
+                    )}
+                  </div>
                 </div>
                 <Plus className="h-4 w-4 text-muted-foreground shrink-0" />
               </button>
@@ -281,13 +290,23 @@ function WatchlistGroup({
                 delayMs={(i * 600) % 3000}
                 className="text-sm font-bold text-foreground"
               />
-              <p
-                className="text-xs text-muted-foreground truncate"
-                title={`${item.country ? countryFlag(item.country) + " " : ""}${item.exchange || ""}${item.sector ? " · " + item.sector : ""}`}
+              <div
+                className="flex items-center gap-1 text-xs text-muted-foreground min-w-0"
+                title={`${item.country ? countryFlag(item.country) + " " : ""}${item.exchange || ""}${(item.sector || item.industry) ? " · " + (item.sector || item.industry) : ""}`}
               >
-                {countryFlag(item.country)} {item.exchange}
-                {item.sector && <span className="ml-1.5 opacity-60">· {item.sector}</span>}
-              </p>
+                <span className="shrink-0">{countryFlag(item.country)} {item.exchange}</span>
+                {(item.sector || item.industry) && (
+                  <>
+                    <span className="shrink-0 opacity-60">·</span>
+                    <MarqueeText
+                      text={(item.sector || item.industry)!}
+                      containerClassName="flex-1 min-w-0"
+                      delayMs={(i * 600 + 400) % 3000}
+                      className="text-xs text-muted-foreground"
+                    />
+                  </>
+                )}
+              </div>
             </div>
             <Button
               variant="ghost"

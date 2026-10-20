@@ -19,4 +19,12 @@ describe("MarqueeText", () => {
     expect(span).toHaveClass("font-bold");
     expect(span).toHaveClass("text-sm");
   });
+
+  it("applies custom containerClassName", () => {
+    const { container } = render(
+      <MarqueeText text="Financial Services" containerClassName="flex-1 min-w-0" />
+    );
+    expect(container.firstChild).toHaveClass("flex-1");
+    expect(container.firstChild).toHaveClass("min-w-0");
+  });
 });
